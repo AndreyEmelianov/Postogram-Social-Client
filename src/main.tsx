@@ -1,7 +1,8 @@
 import React from "react"
-import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
+import { createRoot } from "react-dom/client"
 import { NextUIProvider } from "@nextui-org/react"
+import { createBrowserRouter } from "react-router-dom"
 
 import App from "./App"
 import { store } from "./app/store"
@@ -9,6 +10,16 @@ import { store } from "./app/store"
 import "./index.css"
 
 const container = document.getElementById("root")
+const router = createBrowserRouter([
+  {
+    path: "/auth",
+    element: <h1>auth</h1>,
+  },
+  {
+    path: "/",
+    element: <h1>home</h1>,
+  },
+])
 
 if (container) {
   const root = createRoot(container)
