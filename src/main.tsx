@@ -8,6 +8,7 @@ import App from "./App"
 import { store } from "./app/store"
 
 import "./index.css"
+import { ThemeProvider } from "./components/themeProvider"
 
 const container = document.getElementById("root")
 const router = createBrowserRouter([
@@ -28,7 +29,9 @@ if (container) {
     <React.StrictMode>
       <Provider store={store}>
         <NextUIProvider>
-          <App />
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
         </NextUIProvider>
       </Provider>
     </React.StrictMode>,
