@@ -8,7 +8,7 @@ type InputPropsType = {
   label: string
   control: Control<any>
   required?: string
-  endContent: JSX.Element
+  endContent?: JSX.Element
   type?: string
   placeholder?: string
 }
