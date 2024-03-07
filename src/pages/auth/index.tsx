@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { Login } from "../../features/login"
-import { Card, CardBody, Tab, Tabs } from "@nextui-org/react"
+import { Login } from '../../features/login'
+import { Register } from '../../features/register'
+import { Card, CardBody, Tab, Tabs } from '@nextui-org/react'
 
 export const Auth = () => {
-  const [selected, setSelected] = useState("login")
+  const [selected, setSelected] = useState('login')
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -22,7 +23,7 @@ export const Auth = () => {
                 <Login setSelected={setSelected} />
               </Tab>
               <Tab key="sign-up" title="Регистрация">
-                Регистрация
+                <Register setSelected={setSelected} />
               </Tab>
             </Tabs>
           </CardBody>
