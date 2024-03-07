@@ -1,49 +1,50 @@
-import React from "react"
-import { Provider } from "react-redux"
-import { createRoot } from "react-dom/client"
-import { NextUIProvider } from "@nextui-org/react"
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import React from 'react'
+import { Provider } from 'react-redux'
+import { createRoot } from 'react-dom/client'
+import { NextUIProvider } from '@nextui-org/react'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { store } from "./app/store"
-import { Auth } from "./pages/auth"
-import { Posts } from "./pages/posts"
-import { CurrentPost } from "./pages/currentPost"
-import { UserProfile } from "./pages/userProfile"
-import { Followers } from "./pages/followers"
-import { Following } from "./pages/following"
-import { Layout } from "./components/layout"
-import { ThemeProvider } from "./components/themeProvider"
+import { store } from './app/store'
+import { Auth } from './pages/auth'
+import { Posts } from './pages/posts'
+import { CurrentPost } from './pages/currentPost'
+import { UserProfile } from './pages/userProfile'
+import { Followers } from './pages/followers'
+import { Following } from './pages/following'
+import { Layout } from './components/layout'
+import { ThemeProvider } from './components/themeProvider'
+import { AuthGuard } from './features/user/authGuard'
 
-import "./index.css"
+import './index.css'
 
-const container = document.getElementById("root")
+const container = document.getElementById('root')
 const router = createBrowserRouter([
   {
-    path: "/auth",
+    path: '/auth',
     element: <Auth />,
   },
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       {
-        path: "",
+        path: '',
         element: <Posts />,
       },
       {
-        path: "posts/:id",
+        path: 'posts/:id',
         element: <CurrentPost />,
       },
       {
-        path: "users/:id",
+        path: 'users/:id',
         element: <UserProfile />,
       },
       {
-        path: "followers",
+        path: 'followers',
         element: <Followers />,
       },
       {
-        path: "following",
+        path: 'following',
         element: <Following />,
       },
     ],
@@ -58,7 +59,9 @@ if (container) {
       <Provider store={store}>
         <NextUIProvider>
           <ThemeProvider>
-            <RouterProvider router={router} />
+            <AuthGuard>
+              <RouterProvider router={router} />
+            </AuthGuard>
           </ThemeProvider>
         </NextUIProvider>
       </Provider>
