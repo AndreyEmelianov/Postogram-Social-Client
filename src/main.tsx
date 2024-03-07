@@ -2,23 +2,51 @@ import React from "react"
 import { Provider } from "react-redux"
 import { createRoot } from "react-dom/client"
 import { NextUIProvider } from "@nextui-org/react"
-import { createBrowserRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
-import App from "./App"
 import { store } from "./app/store"
+import { Auth } from "./pages/auth"
+import { Posts } from "./pages/posts"
+import { CurrentPost } from "./pages/currentPost"
+import { UserProfile } from "./pages/userProfile"
+import { Followers } from "./pages/followers"
+import { Following } from "./pages/following"
+import { Layout } from "./components/layout"
+import { ThemeProvider } from "./components/themeProvider"
 
 import "./index.css"
-import { ThemeProvider } from "./components/themeProvider"
 
 const container = document.getElementById("root")
 const router = createBrowserRouter([
   {
     path: "/auth",
-    element: <h1>auth</h1>,
+    element: <Auth />,
   },
   {
     path: "/",
-    element: <h1>home</h1>,
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Posts />,
+      },
+      {
+        path: "posts/:id",
+        element: <CurrentPost />,
+      },
+      {
+        path: "users/:id",
+        element: <UserProfile />,
+      },
+      {
+        path: "followers",
+        element: <Followers />,
+      },
+      {
+        path: "following",
+        element: <Following />,
+      },
+    ],
   },
 ])
 
@@ -30,7 +58,7 @@ if (container) {
       <Provider store={store}>
         <NextUIProvider>
           <ThemeProvider>
-            <App />
+            <RouterProvider router={router} />
           </ThemeProvider>
         </NextUIProvider>
       </Provider>
