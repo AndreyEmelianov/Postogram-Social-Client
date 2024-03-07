@@ -2,10 +2,10 @@ import { useState, type FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
-import { Input } from '../components/input'
-import { useRegisterMutation } from '../app/services/userApi'
-import { hasErrorField } from '../utils/hasErrorField'
-import { ErrorMessage } from '../components/errorMessage'
+import { Input } from '../../components/input'
+import { useRegisterMutation } from '../../app/services/userApi'
+import { hasErrorField } from '../../utils/hasErrorField'
+import { ErrorMessage } from '../../components/errorMessage'
 import { Button, Link } from '@nextui-org/react'
 
 type RegisterType = {
