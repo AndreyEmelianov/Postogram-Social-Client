@@ -43,7 +43,7 @@ export const Login: FC<LoginProps> = ({ setSelected }) => {
   const onSubmitForm = async (data: LoginType) => {
     try {
       await login(data).unwrap()
-      await triggerCurrentQuery()
+      await triggerCurrentQuery().unwrap()
       navigate('/')
     } catch (err) {
       if (hasErrorField(err)) {
