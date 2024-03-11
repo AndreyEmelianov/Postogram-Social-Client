@@ -42,7 +42,7 @@ type CardProps = {
   commentId?: string
   likesCount?: number
   commentsCount?: number
-  createdAt: Date
+  createdAt?: Date
   updatedAt?: Date
   cardFor: 'comment' | 'post' | 'current-post'
   likedByUser?: boolean
@@ -101,7 +101,7 @@ export const Card: FC<CardProps> = ({
           navigate('/')
           break
         case 'comment':
-          await deleteComment(id).unwrap()
+          await deleteComment(commentId).unwrap()
           await refetchPosts()
           break
         default:
@@ -122,7 +122,7 @@ export const Card: FC<CardProps> = ({
         ? await unlikePost(id).unwrap()
         : await likePost({ postId: id }).unwrap()
 
-      await refetchPosts()
+      await triggerGetPostById(id).unwrap()
     } catch (err) {
       if (hasErrorField(err)) {
         setError(err.data.error)
