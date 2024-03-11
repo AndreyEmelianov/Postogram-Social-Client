@@ -1,18 +1,34 @@
-import { useContext } from "react"
+import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { ThemeContext } from "../themeProvider"
+import { ThemeContext } from '../themeProvider'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { logout, selectIsAuthenticated } from '../../features/user/userSlice'
 
 import {
+  Button,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-} from "@nextui-org/react"
-import { FaRegMoon } from "react-icons/fa"
-import { LuSunMedium } from "react-icons/lu"
+} from '@nextui-org/react'
+import { FaRegMoon } from 'react-icons/fa'
+import { LuSunMedium } from 'react-icons/lu'
+import { CiLogout } from 'react-icons/ci'
 
 export const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext)
+
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
+  const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    localStorage.removeItem('postogram-token')
+    navigate('/auth')
+  }
 
   return (
     <Navbar>
@@ -24,9 +40,21 @@ export const Header = () => {
           className="lg:flex text-3xl cursor-pointer"
           onClick={() => toggleTheme()}
         >
-          {theme === "light" ? <FaRegMoon /> : <LuSunMedium />}
+          {theme === 'light' ? <FaRegMoon /> : <LuSunMedium />}
         </NavbarItem>
-        <NavbarItem></NavbarItem>
+        <NavbarItem>
+          {isAuthenticated && (
+            <Button
+              color="default"
+              variant="flat"
+              className="gap-2"
+              onClick={handleLogout}
+            >
+              <CiLogout />
+              <span>Выйти</span>
+            </Button>
+          )}
+        </NavbarItem>
       </NavbarContent>
     </Navbar>
   )
