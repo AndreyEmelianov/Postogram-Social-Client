@@ -20,7 +20,7 @@ export const Layout = () => {
     if (!isAuthenticated) {
       navigate('/auth')
     }
-  }, [])
+  }, [isAuthenticated, navigate])
 
   return (
     <>

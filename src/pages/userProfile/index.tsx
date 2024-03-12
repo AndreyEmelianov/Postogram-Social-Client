@@ -17,6 +17,7 @@ import { BASE_URL } from '../../constants'
 import { ProfileInfo } from '../../components/profileInfo'
 import { formatToClientDate } from '../../utils/formatToClientDate'
 import { CountInfo } from '../../components/countInfo'
+import { EditProfile } from '../../components/editProfile'
 
 import { Button, Card, Image, useDisclosure } from '@nextui-org/react'
 import {
@@ -58,6 +59,18 @@ export const UserProfile = () => {
     }
   }
 
+  const handleClose = async () => {
+    try {
+      if (id) {
+        await triggerGetUserByIdQuery(id)
+        await triggerCurrentQuery()
+        onClose()
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <>
       <GoBack />
@@ -89,7 +102,9 @@ export const UserProfile = () => {
                 {data.isFollowing ? 'Отписаться' : 'Подписаться'}
               </Button>
             ) : (
-              <Button endContent={<CiEdit />}>Редактировать</Button>
+              <Button endContent={<CiEdit />} onClick={() => onOpen()}>
+                Редактировать
+              </Button>
             )}
           </div>
         </Card>
@@ -108,6 +123,7 @@ export const UserProfile = () => {
           </div>
         </Card>
       </div>
+      <EditProfile isOpen={isOpen} onClose={handleClose} user={data} />
     </>
   )
 }
