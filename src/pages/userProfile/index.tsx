@@ -43,7 +43,20 @@ export const UserProfile = () => {
 
   if (!data) return null
 
-  const handleFollow = async () => {}
+  const handleFollow = async () => {
+    try {
+      if (id) {
+        data.isFollowing
+          ? await unfollowUser(id).unwrap()
+          : await followUser({ followingId: id }).unwrap()
+
+        await triggerGetUserByIdQuery(id)
+        await triggerCurrentQuery()
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <>
