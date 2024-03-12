@@ -12,18 +12,18 @@ import {
   useFollowUserMutation,
   useUnfollowUserMutation,
 } from '../../app/services/followApi'
-
-import { Button, Card, Image, useDisclosure } from '@nextui-org/react'
 import { GoBack } from '../../components/GoBackButton'
 import { BASE_URL } from '../../constants'
+import { ProfileInfo } from '../../components/profileInfo'
+import { formatToClientDate } from '../../utils/formatToClientDate'
+import { CountInfo } from '../../components/countInfo'
+
+import { Button, Card, Image, useDisclosure } from '@nextui-org/react'
 import {
   MdOutlinePersonAddAlt1,
   MdOutlinePersonAddDisabled,
 } from 'react-icons/md'
 import { CiEdit } from 'react-icons/ci'
-import { ProfileInfo } from '../../components/profileInfo'
-import { formatToClientDate } from '../../utils/formatToClientDate'
-import { CountInfo } from '../../components/countInfo'
 
 export const UserProfile = () => {
   const { id } = useParams<{ id: string }>()
